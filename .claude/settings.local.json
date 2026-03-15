@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(file \"/Users/jandurejko/Documents/isiklikudProjektid/Gamedev/dungion-cleaner/Assets/Snoblin_Prototype_Character/Assets/Prototype_Character\"/*.png)"
+    ]
+  }
+}
