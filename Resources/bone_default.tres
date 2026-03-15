@@ -1,0 +1,7 @@
+[gd_resource type="BoneData" load_steps=1 format=3]
+
+[resource]
+display_name = "Bone"
+interaction_prompt = "Pick up [E]"
+carry_speed_multiplier = 0.7
+is_weapon = false

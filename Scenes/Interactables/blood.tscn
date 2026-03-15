@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/Blood.gd" id="1_blood"]
+[ext_resource type="Texture2D" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_obj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 10.0
+
+[node name="Blood" type="Node2D"]
+script = ExtResource("1_blood")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.2, 0.2, 0.85)
+texture = ExtResource("2_obj")
+region_enabled = true
+region_rect = Rect2(64, 32, 16, 16)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 16.0
+offset_bottom = -14.0
+show_percentage = false

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/Box.gd" id="1_box"]
+[ext_resource type="Texture2D" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_obj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(12, 12)
+
+; Root is StaticBody2D so the physics engine sees the box as a solid obstacle.
+; Box.gd moves it by setting global_position directly — Godot 4 syncs StaticBody2D
+; position to physics on the next step.
+[node name="Box" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_box")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_obj")
+region_enabled = true
+region_rect = Rect2(96, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="TargetIndicator" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="TargetIndicator"]
+modulate = Color(0.3, 1, 0.3, 0.5)
+texture = ExtResource("2_obj")
+region_enabled = true
+region_rect = Rect2(96, 0, 16, 16)

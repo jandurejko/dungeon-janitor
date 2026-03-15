@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bph8q0c7bhtqt"]
+
+[ext_resource type="Script" uid="uid://b8gcsi0e5epix" path="res://Scripts/Ui/hud.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer" unique_id=679190529]
+script = ExtResource("1_hud")
+
+[node name="TimerLabel" type="Label" parent="." unique_id=635467152]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 54.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 10
+text = "2:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TasksPanel" type="PanelContainer" parent="." unique_id=1572407585]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 120.0
+
+[node name="TaskList" type="VBoxContainer" parent="TasksPanel" unique_id=2137169745]
+layout_mode = 2
+
+[node name="InteractionPrompt" type="Label" parent="." unique_id=79483052]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -48.0
+offset_right = 100.0
+offset_bottom = -12.0
+text = "Interact [E]"
+horizontal_alignment = 1
+
+[node name="CarryingIndicator" type="HBoxContainer" parent="." unique_id=1218285441]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = 160.0
+offset_bottom = -12.0
+
+[node name="Icon" type="TextureRect" parent="CarryingIndicator" unique_id=644626593]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="CarryingIndicator" unique_id=1870263221]
+layout_mode = 2

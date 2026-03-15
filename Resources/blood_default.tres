@@ -1,0 +1,7 @@
+[gd_resource type="BloodData" load_steps=1 format=3]
+
+[resource]
+display_name = "Blood Stain"
+interaction_prompt = "Clean [Hold E]"
+clean_time = 2.5
+reset_on_release = false

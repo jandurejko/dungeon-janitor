@@ -7,7 +7,7 @@ Track progress here. Mark tasks `[x]` when done, `[~]` when skipped, `[-]` when 
 ## Phase 1: Foundation
 
 ### Task 1.1 — InteractableData Resources
-**Status:** `[ ]`
+**Status:** `[x]`
 **Goal:** Create the resource system all interactable objects will use.
 **Files to create:**
 - `Scripts/Resources/InteractableData.gd` — base Resource class
@@ -24,7 +24,7 @@ Track progress here. Mark tasks `[x]` when done, `[~]` when skipped, `[-]` when 
 ---
 
 ### Task 1.2 — Interactable Base Scene
-**Status:** `[ ]`
+**Status:** `[x]`
 **Goal:** One base scene/script all interactables extend from.
 **Files to create:**
 - `Scripts/Interactables/Interactable.gd`
@@ -49,7 +49,7 @@ Interactable (Node2D)
 ---
 
 ### Task 1.3 — Player State Machine
-**Status:** `[ ]`
+**Status:** `[x]`
 **Goal:** Refactor `player.gd` to use a state machine.
 **File to modify:** `Scripts/Charecters/Player/player.gd`
 
@@ -77,7 +77,7 @@ enum State { IDLE, MOVING, CARRYING, CLEANING, PUSHING }
 ## Phase 2: Interactable Objects
 
 ### Task 2.1 — Bone Interactable
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files to create:**
 - `Scripts/Interactables/Bone.gd`
 - `Scenes/Interactables/bone.tscn`
@@ -92,7 +92,7 @@ enum State { IDLE, MOVING, CARRYING, CLEANING, PUSHING }
 ---
 
 ### Task 2.2 — Blood Interactable
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files to create:**
 - `Scripts/Interactables/Blood.gd`
 - `Scenes/Interactables/blood.tscn`
@@ -107,7 +107,7 @@ enum State { IDLE, MOVING, CARRYING, CLEANING, PUSHING }
 ---
 
 ### Task 2.3 — Box Interactable
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files to create:**
 - `Scripts/Interactables/Box.gd`
 - `Scenes/Interactables/box.tscn`
@@ -124,7 +124,7 @@ enum State { IDLE, MOVING, CARRYING, CLEANING, PUSHING }
 ## Phase 3: UI
 
 ### Task 3.1 — HUD Scene
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files to create:**
 - `Scenes/Ui/hud.tscn`
 - `Scripts/Ui/hud.gd`
@@ -151,7 +151,7 @@ HUD (CanvasLayer)
 ---
 
 ### Task 3.2 — LevelManager
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files to create:**
 - `Scripts/Managers/LevelManager.gd`
 
@@ -166,7 +166,7 @@ HUD (CanvasLayer)
 ---
 
 ### Task 3.3 — Wire HUD + LevelManager
-**Status:** `[ ]`
+**Status:** `[x]`
 **Goal:** Connect LevelManager signals to HUD functions.
 **Files to modify:**
 - `Scenes/General/main.tscn` — add HUD (CanvasLayer) and LevelManager nodes
@@ -176,9 +176,62 @@ HUD (CanvasLayer)
 
 ---
 
-## Phase 4: Game Management
+## Phase 4: Gameplay Systems
 
-### Task 4.1 — GameManager Autoload (stub)
+### Task 4.1 — Task System Foundation
+**Status:** `[x]`
+**Files to modify:**
+- `Scripts/Interactables/Interactable.gd` — add `counts_as_task: bool`, `takes_priority_over_carry()` virtual
+- `Scripts/Managers/LevelManager.gd` — filter by `counts_as_task`, use node name as task key
+- `Scripts/Ui/hud.gd` — `add_task(key, label)` / `complete_task(key)` with unique keys
+- `Scripts/Charecters/Player/player.gd` — check `takes_priority_over_carry()` before routing E to carried item
+
+---
+
+### Task 4.2 — Box Axis-Locking
+**Status:** `[x]`
+**Files to modify:**
+- `Scripts/Interactables/Box.gd` — lock push axis on grab based on approach side; filter input in `_physics_process`
+
+**Behaviour:** Approaching from left/right locks horizontal push only. From above/below locks vertical push only.
+
+---
+
+### Task 4.3 — Trashcan Deposit Zone
+**Status:** `[x]`
+**Files to create:**
+- `Scripts/Resources/TrashcanData.gd`
+- `Scripts/Interactables/Trashcan.gd`
+- `Scenes/Interactables/trashcan.tscn`
+
+**Behaviour:** Player carries a bone to the trashcan and presses E. Bone is hidden and its `task_completed` is emitted. Trashcan itself does not count as a task (`counts_as_task = false`).
+
+---
+
+### Task 4.4 — Mop Tool + Cleaning Station
+**Status:** `[x]`
+**Files to create:**
+- `Scripts/Resources/MopData.gd` — `carry_speed_multiplier: float = 0.8`
+- `Scripts/Interactables/Mop.gd` — pickup/drop tool with `is_dirty` state; `make_dirty()` / `make_clean()` tint sprite
+- `Scenes/Interactables/mop.tscn`
+- `Scripts/Resources/CleaningStationData.gd`
+- `Scripts/Interactables/CleaningStation.gd` — press E with dirty mop → mop becomes clean
+- `Scenes/Interactables/cleaning_station.tscn`
+
+Both are `counts_as_task = false`.
+
+---
+
+### Task 4.5 — Blood Requires Mop
+**Status:** `[x]`
+**Files to modify:**
+- `Scripts/Interactables/Blood.gd` — player must carry a clean mop to start cleaning; mop becomes dirty on completion; player returns to CARRYING (not IDLE) after cleaning
+
+---
+
+## Phase 5: Game Management
+
+### Task 5.1 — GameManager Autoload (stub)
 **Status:** `[ ]`
 **Files to create:**
 - `Scripts/Managers/GameManager.gd`
@@ -201,8 +254,7 @@ Use this section to park tasks you're tackling yourself or deferring:
 |------|--------|-------|
 | Shop/Upgrade system | Post-MVP | Needs GameManager to be fleshed out |
 | Multiple level scenes | Post-MVP | One level for now |
-| Deposit zones for bones | After Task 2.1 | Needs LevelManager wired first |
-| Tool system (broom etc.) | Post-MVP | Game.md mentions tools as future |
+| Tool system (broom etc.) | Post-MVP | Mop is in; other tools (broom, etc.) are future |
 | Sound effects | Post-MVP | — |
 
 ---
@@ -211,6 +263,7 @@ Use this section to park tasks you're tackling yourself or deferring:
 
 | Date | Task | Outcome |
 |------|------|---------|
-| — | — | — |
-
-_(Fill in as you go — e.g. "2026-03-15 | Task 1.1 | Completed by Claude")_
+| 2026-03-15 | Tasks 1.1–1.3 | Completed |
+| 2026-03-15 | Tasks 2.1–2.3 | Completed |
+| 2026-03-15 | Tasks 3.1–3.3 | Completed |
+| 2026-03-15 | Tasks 4.1–4.5 | Completed |

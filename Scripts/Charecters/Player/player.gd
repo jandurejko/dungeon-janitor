@@ -9,6 +9,7 @@ var last_direction: String = "down"
 var nearby_interactable: Node = null
 var carried_item: Node = null
 var carry_speed_multiplier: float = 1.0
+var push_axis: String = ""
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -21,6 +22,12 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
 	_handle_interact_input(delta)
+
+	# Lock player to push axis while pushing a box
+	if current_state == State.PUSHING and push_axis != "":
+		match push_axis:
+			"horizontal": direction = Vector2(direction.x, 0.0)
+			"vertical":   direction = Vector2(0.0, direction.y)
 
 	var speed = BASE_SPEED * carry_speed_multiplier
 	# Block movement while cleaning
@@ -37,17 +44,21 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_interact_input(delta: float) -> void:
-	if nearby_interactable == null:
-		return
-
 	if Input.is_action_just_pressed("interact"):
-		nearby_interactable.interact(self)
+		var nearby_takes_priority: bool = (
+			nearby_interactable != null and
+			nearby_interactable.takes_priority_over_carry()
+		)
+		if current_state == State.CARRYING and carried_item != null and not nearby_takes_priority:
+			carried_item.interact(self)
+		elif nearby_interactable != null:
+			nearby_interactable.interact(self)
 
 	# Pass hold-E frames to the current interactable while cleaning
-	if current_state == State.CLEANING:
+	if current_state == State.CLEANING and nearby_interactable != null:
 		if Input.is_action_pressed("interact"):
 			nearby_interactable.cleaning_progress(delta)
-		else:
+		elif Input.is_action_just_released("interact"):
 			nearby_interactable.cleaning_cancelled()
 
 
@@ -86,11 +97,16 @@ func _update_animation(direction: Vector2) -> void:
 
 func _update_carried_item() -> void:
 	if carried_item:
-		carried_item.global_position = global_position + Vector2(0, -10)
+		# Keep bone at player center — avoids drifting out of its own interaction area
+		carried_item.global_position = global_position
 
 
 # Called by Interactable when the player enters its detection area
 func set_nearby_interactable(interactable: Node) -> void:
+	# Ignore the carried item — it sits on top of the player and would
+	# overwrite whatever real interactable the player is standing near.
+	if interactable == carried_item:
+		return
 	nearby_interactable = interactable
 
 

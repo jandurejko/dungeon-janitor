@@ -1,0 +1,8 @@
+[gd_resource type="BoxData" load_steps=1 format=3]
+
+[resource]
+display_name = "Box"
+interaction_prompt = "Push [E]"
+push_speed = 30.0
+target_position = Vector2(149, 140)
+snap_distance = 4.0

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dbfxdde8swy2y"]
+
+[ext_resource type="Script" uid="uid://b7h0tmv1lqktp" path="res://Scripts/Interactables/Mop.gd" id="1_mop"]
+[ext_resource type="Texture2D" uid="uid://56vt5nb0yuw6" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_obj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 12.0
+
+[node name="Mop" type="Node2D" unique_id=1180012940]
+script = ExtResource("1_mop")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=852351279]
+texture = ExtResource("2_obj")
+region_enabled = true
+region_rect = Rect2(241, 64, 14, 19)
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1794712029]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1014516919]
+shape = SubResource("CircleShape2D_1")
