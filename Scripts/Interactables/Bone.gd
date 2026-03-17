@@ -8,6 +8,7 @@ func _ready() -> void:
 		data = BoneData.new()
 		data.display_name = "Bone"
 		data.interaction_prompt = "Pick up [E]"
+		data.task_verb = "throw away"
 
 
 func interact(player: Node) -> void:

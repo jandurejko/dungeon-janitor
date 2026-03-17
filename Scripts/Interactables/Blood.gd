@@ -25,6 +25,7 @@ func _ready() -> void:
 		data = BloodData.new()
 		data.display_name = "Blood Stain"
 		data.interaction_prompt = "Clean [Hold E]"
+		data.task_verb = "mop up"
 	sprite.texture = load(BLOOD_TEXTURES[randi() % BLOOD_TEXTURES.size()])
 	progress_bar.visible = false
 	progress_bar.min_value = 0.0

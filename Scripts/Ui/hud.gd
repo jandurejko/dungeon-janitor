@@ -1,12 +1,14 @@
 extends CanvasLayer
 
+const _TASK_FONT = preload("res://Assets/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf")
+
 @onready var timer_label: Label = $TimerLabel
 @onready var task_list: VBoxContainer = $TasksPanel/TaskList
 @onready var interaction_prompt: Label = $InteractionPrompt
 @onready var carrying_indicator: HBoxContainer = $CarryingIndicator
 @onready var item_name_label: Label = $CarryingIndicator/ItemName
 
-# Maps task_key (scene node name) → Label node
+# Maps task_key → Label node
 var _task_labels: Dictionary = {}
 var _player: Node = null
 
@@ -48,6 +50,9 @@ func add_task(task_key: String, task_label: String) -> void:
 		return
 	var label := Label.new()
 	label.text = "[ ] " + task_label
+	label.add_theme_font_override("font", _TASK_FONT)
+	label.add_theme_font_size_override("font_size", 8)
+	label.clip_text = true
 	task_list.add_child(label)
 	_task_labels[task_key] = label
 
@@ -78,10 +83,10 @@ func hide_carrying() -> void:
 
 
 func _on_task_updated(task_key: String, task_label: String, completed: bool) -> void:
-	if completed:
-		complete_task(task_key)
-	else:
+	if task_key not in _task_labels:
 		add_task(task_key, task_label)
+	var lbl: Label = _task_labels[task_key]
+	lbl.text = ("[x] " if completed else "[ ] ") + task_label
 
 
 func _on_prompt_changed(text: String, should_show: bool) -> void:
