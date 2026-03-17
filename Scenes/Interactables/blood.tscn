@@ -1,28 +1,26 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://oevmk26lwrld"]
 
-[ext_resource type="Script" path="res://Scripts/Interactables/Blood.gd" id="1_blood"]
-[ext_resource type="Texture2D" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_obj"]
+[ext_resource type="Script" uid="uid://cl7akrda03y2j" path="res://Scripts/Interactables/Blood.gd" id="1_blood"]
+[ext_resource type="Texture2D" uid="uid://b44vmagafiik6" path="res://Assets/NEw pack blood/1/1_10.png" id="2_2jm4k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 10.0
 
-[node name="Blood" type="Node2D"]
+[node name="Blood" type="Node2D" unique_id=1676929583]
 script = ExtResource("1_blood")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=974530832]
 modulate = Color(1, 0.2, 0.2, 0.85)
-texture = ExtResource("2_obj")
-region_enabled = true
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_2jm4k")
 region_rect = Rect2(64, 32, 16, 16)
 
-[node name="InteractionArea" type="Area2D" parent="."]
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1232076226]
 collision_layer = 0
-collision_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1676233925]
 shape = SubResource("CircleShape2D_1")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=198763788]
 offset_left = -16.0
 offset_top = -20.0
 offset_right = 16.0

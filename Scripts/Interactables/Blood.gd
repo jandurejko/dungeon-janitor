@@ -6,6 +6,18 @@ var _active_player: Node = null
 
 @onready var progress_bar: ProgressBar = $ProgressBar
 
+const BLOOD_TEXTURES: Array[String] = [
+	"res://Assets/NEw pack blood/1/1_5.png",
+	"res://Assets/NEw pack blood/1/1_7.png",
+	"res://Assets/NEw pack blood/1/1_10.png",
+	"res://Assets/NEw pack blood/2/1_5.png",
+	"res://Assets/NEw pack blood/2/1_7.png",
+	"res://Assets/NEw pack blood/2/1_10.png",
+	"res://Assets/NEw pack blood/3/1_5.png",
+	"res://Assets/NEw pack blood/3/1_7.png",
+	"res://Assets/NEw pack blood/3/1_10.png",
+]
+
 
 func _ready() -> void:
 	super._ready()
@@ -13,6 +25,7 @@ func _ready() -> void:
 		data = BloodData.new()
 		data.display_name = "Blood Stain"
 		data.interaction_prompt = "Clean [Hold E]"
+	sprite.texture = load(BLOOD_TEXTURES[randi() % BLOOD_TEXTURES.size()])
 	progress_bar.visible = false
 	progress_bar.min_value = 0.0
 	progress_bar.max_value = 1.0

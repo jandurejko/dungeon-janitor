@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dvkdu2j78ethq" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/PNG/walls_floor.png" id="2_p55ew"]
 [ext_resource type="Texture2D" uid="uid://dvdmrst0thr2l" path="res://Assets/free-2d-top-down-pixel-dungeon-asset-pack/Tiled_files/walls_floor.png" id="3_580n2"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/bone.tscn" id="10_bone"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/blood.tscn" id="11_blood"]
+[ext_resource type="PackedScene" uid="uid://oevmk26lwrld" path="res://Scenes/Interactables/blood.tscn" id="11_blood"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/box.tscn" id="12_box"]
 [ext_resource type="PackedScene" uid="uid://bph8q0c7bhtqt" path="res://Scenes/Ui/hud.tscn" id="20_hud"]
 [ext_resource type="Script" uid="uid://dfa41v1qubwvt" path="res://Scripts/Managers/LevelManager.gd" id="21_lm"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/mop.tscn" id="22_mop"]
+[ext_resource type="PackedScene" uid="uid://dbfxdde8swy2y" path="res://Scenes/Interactables/mop.tscn" id="22_mop"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/trashcan.tscn" id="23_trashcan"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/cleaning_station.tscn" id="24_cs"]
 
@@ -461,9 +461,14 @@ tile_set = SubResource("TileSet_b3vsi")
 tile_map_data = PackedByteArray("AAACAAAAAAAKAAMAAAADAAAAAAAKAAMAAAAEAAAAAAAKAAMAAAAAAP//AAAFAAIAAAABAP//AAAKAAIAAAACAP//AAAKAAIAAAADAP//AAAKAAIAAAAEAP//AAAKAAIAAAAFAP//AAAKAAIAAAAGAP//AAAKAAIAAAAHAP//AAAKAAIAAAAIAP//AAAKAAIAAAAJAP//AAAKAAIAAAAKAP//AAAKAAIAAAALAP//AAAKAAIAAAAMAP//AAAKAAIAAAANAP//AAAKAAIAAAAOAP//AAAKAAIAAAAPAP//AAAKAAIAAAAQAP//AAAKAAIAAAARAP//AAAKAAIAAAASAP//AAAKAAIAAAATAP//AAAKAAIAAAAUAP//AAAHAAIAAAAAAAAAAAAFAAMAAAABAAAAAAAKAAMAAAAFAAAAAAAKAAMAAAAGAAAAAAAKAAMAAAAHAAAAAAAKAAMAAAAIAAAAAAAKAAMAAAAJAAAAAAAKAAMAAAAKAAAAAAAKAAMAAAALAAAAAAAKAAMAAAAMAAAAAAAKAAMAAAANAAAAAAAKAAMAAAAOAAAAAAAKAAMAAAAPAAAAAAAKAAMAAAAQAAAAAAAKAAMAAAARAAAAAAAKAAMAAAASAAAAAAAKAAMAAAATAAAAAAAKAAMAAAAUAAAAAAAHAAIAAAAAAP7/AAAJAAEAAAABAP7/AAAKAAEAAAACAP7/AAAKAAEAAAADAP7/AAAKAAEAAAAEAP7/AAAKAAEAAAAFAP7/AAAKAAEAAAAGAP7/AAAKAAEAAAAHAP7/AAAKAAEAAAAIAP7/AAAKAAEAAAAJAP7/AAAKAAEAAAAKAP7/AAAKAAEAAAALAP7/AAAKAAEAAAAMAP7/AAAKAAEAAAANAP7/AAAKAAEAAAAOAP7/AAAKAAEAAAAPAP7/AAAKAAEAAAAQAP7/AAAKAAEAAAARAP7/AAAKAAEAAAASAP7/AAAKAAEAAAATAP7/AAAGAAEAAAAAAAEAAAADAAIAAAAAAAIAAAADAAIAAAAAAAMAAAADAAIAAAAAAAQAAAADAAIAAAAAAAUAAAADAAIAAAAAAAYAAAADAAIAAAAAAAcAAAADAAIAAAABAAsAAAAGAAQAAAACAAsAAAAGAAQAAAADAAsAAAAGAAQAAAAEAAsAAAAGAAQAAAAFAAsAAAAGAAQAAAAGAAsAAAAGAAQAAAAHAAsAAAAGAAQAAAAIAAsAAAAGAAQAAAAJAAsAAAAGAAQAAAAKAAsAAAAGAAQAAAAAAAsAAAAFAAQAAAAAAAgAAAADAAIAAAAAAAkAAAADAAIAAAAAAAoAAAADAAIAAAAUAAsAAAAHAAQAAAATAAsAAAAGAAQAAAASAAsAAAAGAAQAAAARAAsAAAAGAAQAAAAQAAsAAAAGAAQAAAAPAAsAAAAGAAQAAAAOAAsAAAAGAAQAAAANAAsAAAAGAAQAAAAMAAsAAAAGAAQAAAALAAsAAAAGAAQAAAAUAAoAAAABAAIAAAAUAAkAAAABAAIAAAAUAAgAAAABAAIAAAAUAAcAAAABAAIAAAAUAAYAAAABAAIAAAAUAAUAAAABAAIAAAAUAAQAAAABAAIAAAAUAAMAAAABAAIAAAAUAAIAAAABAAIAAAAUAAEAAAABAAIAAAAUAP7/AAAHAAEAAAA=")
 tile_set = SubResource("TileSet_fnqf6")
 
-[node name="Player" parent="Level" unique_id=441072925 instance=ExtResource("1_ib4sv")]
-position = Vector2(149, 86)
-collision_mask = 2
+[node name="Trashcan" parent="Level" unique_id=2111034838 instance=ExtResource("23_trashcan")]
+position = Vector2(301, 36)
+
+[node name="CleaningStation" parent="Level" unique_id=1817744256 instance=ExtResource("24_cs")]
+position = Vector2(179, 37)
+
+[node name="Box" parent="Level" unique_id=1230483609 instance=ExtResource("12_box")]
+position = Vector2(297, 153)
 
 [node name="Bone" parent="Level" unique_id=153089698 instance=ExtResource("10_bone")]
 position = Vector2(299, 71)
@@ -471,23 +476,18 @@ position = Vector2(299, 71)
 [node name="Blood" parent="Level" unique_id=807452070 instance=ExtResource("11_blood")]
 position = Vector2(72, 73)
 
-[node name="Box" parent="Level" unique_id=1230483609 instance=ExtResource("12_box")]
-position = Vector2(297, 153)
-
 [node name="Mop" parent="Level" unique_id=417251319 instance=ExtResource("22_mop")]
 position = Vector2(71, 37)
-
-[node name="Trashcan" parent="Level" unique_id=2111034838 instance=ExtResource("23_trashcan")]
-position = Vector2(301, 36)
-
-[node name="CleaningStation" parent="Level" unique_id=1817744256 instance=ExtResource("24_cs")]
-position = Vector2(179, 37)
 
 [node name="Blood2" parent="Level" unique_id=702768507 instance=ExtResource("11_blood")]
 position = Vector2(65, 109)
 
 [node name="Blood3" parent="Level" unique_id=2019424505 instance=ExtResource("11_blood")]
 position = Vector2(66, 152)
+
+[node name="Player" parent="." unique_id=441072925 instance=ExtResource("1_ib4sv")]
+position = Vector2(149, 86)
+collision_mask = 2
 
 [node name="LevelManager" type="Node" parent="." unique_id=758208253]
 script = ExtResource("21_lm")
